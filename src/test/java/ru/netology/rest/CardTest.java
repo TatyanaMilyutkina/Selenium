@@ -10,25 +10,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+
 
 
 public class CardTest {
     private WebDriver driver;
 
     @BeforeAll
-    static void nweCart() {
-        System.setProperty("webdriver.chrome.driver", "driver/win/chromedriver.exe");
+    public static void setupClass() {
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999");
     }
 
     @Test
-
     void test() {
-        driver.get("http://localhost:9999");
+       // driver.get("http://localhost:9999");
 
         driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Татьяна");
         driver.findElement(By.cssSelector("span[data-test-id='phone'] input")).sendKeys("+79279999999");
@@ -39,7 +47,7 @@ public class CardTest {
     }
 
     @AfterEach
-    void down() {
+    void tearDown() {
         driver.quit();
         driver = null;
     }
