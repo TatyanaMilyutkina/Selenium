@@ -14,8 +14,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 
-
-
 public class CardTest {
     private WebDriver driver;
 
@@ -36,17 +34,15 @@ public class CardTest {
 
     @Test
     void test() {
-       // driver.get("http://localhost:9999");
 
-        driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Татьяна");
-        driver.findElement(By.cssSelector("span[data-test-id='phone'] input")).sendKeys("+79279999999");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Татьяна");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79279999999");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button__text")).click();
         String actualText = driver.findElement(By.cssSelector("[data-test-id=order-success")).getText();
-        //String text = driver.findElement(By.className("paragraph")).getText();
         String expectedText = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         assertEquals(expectedText.trim(), actualText.trim());
-        //assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
+
     }
 
     @AfterEach
